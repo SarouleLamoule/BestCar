@@ -11,6 +11,9 @@
     $LesVoitures=array();
     $LesMarques=array();
     $LesCarburants=array();
+    $LesNoms=array();
+    $CarburantSelectionné;
+    $MarqueSelectionnée;
 
     //recuperation du JSON de toutes les voitures 
     $url="https://localhost:7042/api/Voiture";
@@ -76,7 +79,6 @@
     }
 
 
-    var_dump($LesMarques);
 
 
         //recuperation du JSON de tout les carburant de voiture  
@@ -93,6 +95,23 @@
         foreach($json as $Carburant){
             array_push($LesCarburants,$Carburant);
         }
+
+           //recuperation du JSON de tout les noms de voiture  
+           $url="https://localhost:7042/api/NomCompletVoiture";
+           $arrContextOptions=array(
+               "ssl"=>array(
+                   "verify_peer"=>false,
+                   "verify_peer_name"=>false,
+               ),
+           );  
+           $data = file_get_contents($url, false, stream_context_create($arrContextOptions));
+           $json=json_decode($data);
+       
+           foreach($json as $nom){
+               array_push($LesNoms,$nom);
+           }
+
+        
     ?>
 
     <title>BestCar</title>
@@ -114,10 +133,8 @@
                             <?php
                         }
                         ?>
-
                     </select>
-
-                    <select id="carburant">
+                    <select id="carburant" onclick="CarburantSelectionné=this.options[this.selectedIndex].text;">
                         <option selected="selected" >Sélectionner un carburant</option>
                         <?php
                         foreach($LesCarburants as $value){
@@ -126,25 +143,33 @@
                             <?php
                         }
                         ?>
-
-                    </select>                
+                    </select>  
+                    
+                    <button onclick="Actualiser()" >Rechercher</button>              
                 
-                    <div>
-                        <label><label><input type="text" name="" id="" placeholder="saisir un modèle"><button class="btn-ok">OK</button></label>
-                    </div>
+                    <script>
+                        function Actualiser() {
+                            <?php
+                            ?>
+
+                        }
+                    </script>
                 </div>
                 </div>
             </div>
+            <?php
+                        foreach($LesNoms as $value){
+
+                            ?>
+                         
+                                <label><?php echo $value;  ?></label><br>
+                            <?php
+                        }
+                        ?>
             <div class="content">
                 <div class="wrapper">
-                    <div class="car one">Un</div>
-                    <div class="car two">Deux</div>
-                    <div class="car three">Trois</div>
-                    <div class="car four">Quatre</div>
-                    <div class="car five">Cinq</div>
-                    <div class="car six">Six</div>
-                    <div class="car five">Sept</div>
-                    <div class="car six">Huit</div>
+                    
+                    
                 </div>
             </div>
 
