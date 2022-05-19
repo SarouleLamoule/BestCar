@@ -14,6 +14,7 @@
     $LesNoms=array();
     $CarburantSelectionné;
     $MarqueSelectionnée;
+    $tmp=false;
 
     //recuperation du JSON de toutes les voitures 
     $url="https://localhost:7042/api/Voiture";
@@ -150,8 +151,8 @@
                     <script>
                         function Actualiser() {
                             <?php
-                            ?>
 
+                            ?>
                         }
                     </script>
                 </div>
@@ -163,9 +164,12 @@
                             ?>
                          
                                 <label><?php echo $value;  ?></label><br>
+
                             <?php
                         }
                         ?>
+                            <label><?php echo $CarburantSelectionné;  ?></label><br>
+
             <div class="content">
                 <div class="wrapper">
                     
