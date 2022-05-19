@@ -11,10 +11,27 @@
     $LesVoitures=array();
     $LesMarques=array();
     $LesCarburants=array();
-    $LesNoms=array();
     $CarburantSelectionné;
     $MarqueSelectionnée;
-    $tmp=false;
+
+    if(isset($_POST['Rechercher'])){ 
+        if($_POST['carburant']!="Sélectionner un carburant"){
+            $selection_carburant=$_POST['carburant'];
+            echo $selection_carburant;
+        }
+        if($_POST['marque']!="Sélectionner une marque"){
+            $selection_carburant=$_POST['marque'];
+            echo $selection_marque;
+        }
+    }                       
+       
+
+
+    // if(isset($_POST['carburant'])){
+    //     $selection_liste=$_POST['carburant'];
+	// echo "erfef";
+	// 	echo "Valeur selectionn&eacute;e: ".$selection_liste;
+    // }
 
     //recuperation du JSON de toutes les voitures 
     $url="https://localhost:7042/api/Voiture";
@@ -63,6 +80,7 @@
 
         array_push($LesVoitures,$nouvelleVoiture);
     }
+  
 
     //recuperation du JSON de toutes les marques de voiture  
     $url="https://localhost:7042/api/MarquesVoiture";
@@ -97,21 +115,6 @@
             array_push($LesCarburants,$Carburant);
         }
 
-           //recuperation du JSON de tout les noms de voiture  
-           $url="https://localhost:7042/api/NomCompletVoiture";
-           $arrContextOptions=array(
-               "ssl"=>array(
-                   "verify_peer"=>false,
-                   "verify_peer_name"=>false,
-               ),
-           );  
-           $data = file_get_contents($url, false, stream_context_create($arrContextOptions));
-           $json=json_decode($data);
-       
-           foreach($json as $nom){
-               array_push($LesNoms,$nom);
-           }
-
         
     ?>
 
@@ -125,7 +128,9 @@
                 <div class="content-header">
                 <h1>Rechercher la voiture</h1>
                 <div class="search-zone">
-                    <select id="marque">
+                <form action="index.php" method="post" id="formRechercher">
+
+                    <select id="marque" name="marque">
                         <option selected="selected" >Sélectionner une marque</option>
                         <?php
                         foreach($LesMarques as $value){
@@ -135,7 +140,7 @@
                         }
                         ?>
                     </select>
-                    <select id="carburant" onclick="CarburantSelectionné=this.options[this.selectedIndex].text;">
+                    <select id="carburant" name="carburant">
                         <option selected="selected" >Sélectionner un carburant</option>
                         <?php
                         foreach($LesCarburants as $value){
@@ -145,34 +150,27 @@
                         }
                         ?>
                     </select>  
-                    
-                    <button onclick="Actualiser()" >Rechercher</button>              
-                
-                    <script>
-                        function Actualiser() {
-                            <?php
+                    <button type="submit" name="Rechercher">Rechercher</button>              
 
-                            ?>
-                        }
-                    </script>
+                    </form>
+                
+                   
+ 
+                 
                 </div>
                 </div>
             </div>
-            <?php
-                        foreach($LesNoms as $value){
-
-                            ?>
-                         
-                                <label><?php echo $value;  ?></label><br>
-
-                            <?php
-                        }
-                        ?>
-                            <label><?php echo $CarburantSelectionné;  ?></label><br>
-
             <div class="content">
                 <div class="wrapper">
-                    
+            <?php
+              foreach($LesVoitures as $item){
+                ?>
+                    <div style="height: 10em; margin: 1em;  width: 20em; background-size: cover; background-image:url(<?php echo $item->urlImage;  ?> );color: #fff;" ><?php echo $item->Marque." ".$item->Modele ?></div>                
+                <?php
+            }
+            ?>
+
+
                     
                 </div>
             </div>
