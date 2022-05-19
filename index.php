@@ -115,7 +115,34 @@
             array_push($LesCarburants,$Carburant);
         }
 
-        
+        var_dump($LesVoitures);
+        if($_POST['carburant']!="Sélectionner un carburant"){
+            if(!empty($Carburant)){
+                $i = 0;
+                foreach($LesVoitures as $voit){
+                    var_dump($voit->Carburant);
+                    var_dump($Carburant);
+                    if($voit->Carburant == $Carburant){
+                        unset($LesVoitures[$i]);
+                    }
+                    $i++;
+                }
+            }
+        }
+
+        if($_POST['marque']!="Sélectionner une marque"){
+            if(!empty($Marque)){
+                $i = 0;
+                foreach($LesVoitures as $voit){
+                    var_dump($i);
+                    if($voit->Marque == $Marque){
+                        unset($LesVoitures[$i]);
+                    }
+                    $i++;
+                }
+            }
+        }
+       
     ?>
 
     <title>BestCar</title>
