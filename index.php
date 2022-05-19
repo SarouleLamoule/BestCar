@@ -20,7 +20,7 @@
             echo $selection_carburant;
         }
         if($_POST['marque']!="Sélectionner une marque"){
-            $selection_carburant=$_POST['marque'];
+            $selection_marque=$_POST['marque'];
             echo $selection_marque;
         }
     }                       
@@ -61,7 +61,7 @@
             $this->Marque=$Marque;
             $this->Modele=$Modele;
             $this->Carburant=$Carburant;
-            $this->Puissance=$Carburant;
+            $this->Puissance=$Puissance;
             $this->Boite=$Boite;
             $this->NbPorte=$NbPorte;
             $this->Capacite=$Capacite;
