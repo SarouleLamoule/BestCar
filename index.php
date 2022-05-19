@@ -15,15 +15,13 @@
     $MarqueSelectionnée;
 
     if(isset($_POST['Rechercher'])){ 
-        if($_POST['carburant']!="Sélectionner un carburant"){
+        if($_POST['carburant']!="Tout les carburants"){
             $selection_carburant=$_POST['carburant'];
-            echo $selection_carburant;
         }
-        if($_POST['marque']!="Sélectionner une marque"){
+        if($_POST['marque']!="Toutes les marques"){
             $selection_marque=$_POST['marque'];
-            echo $selection_marque;
         }
-    }                       
+    }                   
        
 
 
@@ -115,14 +113,12 @@
             array_push($LesCarburants,$Carburant);
         }
 
-        var_dump($LesVoitures);
         if($_POST['carburant']!="Sélectionner un carburant"){
-            if(!empty($Carburant)){
+            if(!empty($selection_carburant)){
                 $i = 0;
                 foreach($LesVoitures as $voit){
-                    var_dump($voit->Carburant);
-                    var_dump($Carburant);
-                    if($voit->Carburant == $Carburant){
+                
+                    if($voit->Carburant != $selection_carburant){
                         unset($LesVoitures[$i]);
                     }
                     $i++;
@@ -131,11 +127,10 @@
         }
 
         if($_POST['marque']!="Sélectionner une marque"){
-            if(!empty($Marque)){
+            if(!empty($selection_marque)){
                 $i = 0;
                 foreach($LesVoitures as $voit){
-                    var_dump($i);
-                    if($voit->Marque == $Marque){
+                    if($voit->Marque != $selection_marque){
                         unset($LesVoitures[$i]);
                     }
                     $i++;
@@ -157,8 +152,8 @@
                 <div class="search-zone">
                 <form action="index.php" method="post" id="formRechercher">
 
-                    <select id="marque" name="marque">
-                        <option selected="selected" >Sélectionner une marque</option>
+                    <select id="marque" name="marque" >
+                        <option selected="selected" >Toutes les marques</option>
                         <?php
                         foreach($LesMarques as $value){
                             ?>
@@ -168,7 +163,7 @@
                         ?>
                     </select>
                     <select id="carburant" name="carburant">
-                        <option selected="selected" >Sélectionner un carburant</option>
+                        <option selected="selected" >Tout les carburants</option>
                         <?php
                         foreach($LesCarburants as $value){
                             ?>
